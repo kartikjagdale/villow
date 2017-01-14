@@ -1,0 +1,8 @@
+<vil-header></vil-header>
+<h2>  Movies List </h2>
+<div *ngIf="movies">
+  <div *ngFor="let movie of movies">
+    <vil-movie-card [movie]="movie"></vil-movie-card>
+  </div>
+ </div>
+ <vil-footer></vil-footer>
