@@ -37,14 +37,16 @@ import { combineReducers } from '@ngrx/store';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-// import * as fromSearch from './search';
+import * as fromSearch from './search';
+import * as fromMovies from './movies';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface State {
-  // search: fromSearch.State;
+  search: fromSearch.State;
+  books: fromMovies.State;
   router: fromRouter.RouterState;
 }
 
@@ -56,7 +58,8 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-  // search: fromSearch.reducer,
+  search: fromSearch.reducer,
+  books: fromMovies.reducer,
   router: fromRouter.routerReducer,
 };
 
