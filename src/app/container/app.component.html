@@ -1,8 +1,4 @@
-<vil-header></vil-header>
-<h2>  Movies List </h2>
-<div *ngIf="movies">
-  <div *ngFor="let movie of movies">
-    <vil-movie-card [movie]="movie"></vil-movie-card>
-  </div>
- </div>
- <vil-footer></vil-footer>
+<!--<vil-header></vil-header>-->
+ <ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>
+ <router-outlet></router-outlet>
+ <!--<vil-footer></vil-footer>-->

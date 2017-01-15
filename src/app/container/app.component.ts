@@ -9,12 +9,12 @@ import { MoviesRetrieverService } from '../services/movies-retriever.service';
 })
 export class AppComponent {
   movies: Array<Object>;
-  constructor(private moviesRetriver: MoviesRetrieverService){
-    this.moviesRetriver.getPopular()
-        .subscribe(response => {
-          this.movies = response.results;
-        });
-  }
+  // constructor(private moviesRetriver: MoviesRetrieverService){
+  //   this.moviesRetriver.getPopular()
+  //       .subscribe(response => {
+  //         this.movies = response.results;
+  //       });
+  // }
   
   title = 'vil works!';
 }

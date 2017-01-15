@@ -19,4 +19,16 @@ export class MoviesRetrieverService {
         return response.json();
       });
   }
+
+  searchMovies(searchStr: string) {
+    var search = new URLSearchParams();
+    search.set('sort_by','popularity.desc');
+    search.set('query', searchStr);
+    search.set('api_key', this.apiKey);
+    console.log("search is", search);
+    return this.jsonp.get('https://api.themoviedb.org/3/search/movie?callback=JSONP_CALLBACK', {search})
+      .map(res => {
+        return res.json();
+      })
+  }
 }
