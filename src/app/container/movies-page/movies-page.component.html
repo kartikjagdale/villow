@@ -1,1 +1,1 @@
-<vil-movie-search></vil-movie-search>
+<vil-movie-search [query]="searchQuery$ | async" [searching]="loading$ | async" (search)="search($event)"></vil-movie-search>

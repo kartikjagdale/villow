@@ -46,7 +46,7 @@ import * as fromMovies from './movies';
  */
 export interface State {
   search: fromSearch.State;
-  books: fromMovies.State;
+  movies: fromMovies.State;
   router: fromRouter.RouterState;
 }
 
@@ -59,7 +59,7 @@ export interface State {
  */
 const reducers = {
   search: fromSearch.reducer,
-  books: fromMovies.reducer,
+  movies: fromMovies.reducer,
   router: fromRouter.routerReducer,
 };
 
@@ -74,3 +74,59 @@ export function reducer(state: any, action: any) {
     return developmentReducer(state, action);
   }
 }
+
+/**
+ * A selector function is a map function factory. We pass it parameters and it
+ * returns a function that maps from the larger state tree into a smaller
+ * piece of state. This selector simply selects the `movies` state.
+ *
+ * Selectors are used with the `select` operator.
+ *
+ * ```ts
+ * class MyComponent {
+ * 	constructor(state$: Observable<State>) {
+ * 	  this.moviesState$ = state$.select(getMoviesState);
+ * 	}
+ * }
+ * ```
+ */
+export const getMoviesState = (state: State) => state.movies;
+
+/**
+ * Every reducer module exports selector functions, however child reducers
+ * have no knowledge of the overall state tree. To make them useable, we
+ * need to make new selectors that wrap them.
+ *
+ * Once again our compose function comes in handy. From right to left, we
+ * first select the movies state then we pass the state to the book
+ * reducer's getMovies selector, finally returning an observable
+ * of search results.
+ *
+ * Share memoizes the selector functions and publishes the result. This means
+ * every time you call the selector, you will get back the same result
+ * observable. Each subscription to the resultant observable
+ * is shared across all subscribers.
+ */
+ export const getBookEntities = createSelector(getMoviesState, fromMovies.getEntities);
+ export const getBookIds = createSelector(getMoviesState, fromMovies.getIds);
+ export const getSelectedBookId = createSelector(getMoviesState, fromMovies.getSelectedId);
+ export const getSelectedBook = createSelector(getMoviesState, fromMovies.getSelected);
+
+
+/**
+ * Just like with the movies selectors, we also have to compose the search
+ * reducer's and collection reducer's selectors.
+ */
+export const getSearchState = (state: State) => state.search;
+
+export const getSearchBookIds = createSelector(getSearchState, fromSearch.getIds);
+export const getSearchQuery = createSelector(getSearchState, fromSearch.getQuery);
+export const getSearchLoading = createSelector(getSearchState, fromSearch.getLoading);
+
+/**
+ * Some selector functions create joins across parts of state. This selector
+ * composes the search result IDs to return an array of books in the store.
+ */
+export const getSearchResults = createSelector(getBookEntities, getSearchBookIds, (books, searchIds) => {
+  return searchIds.map(id => books[id]);
+});
