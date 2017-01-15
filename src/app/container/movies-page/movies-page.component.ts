@@ -1,7 +1,6 @@
 import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/take';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MoviesRetrieverService } from '../../services/movies-retriever.service';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';

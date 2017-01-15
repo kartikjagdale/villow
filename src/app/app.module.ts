@@ -14,13 +14,19 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 
 /** Angular 2 Material Module */
+import 'hammerjs';
 import { MaterialModule } from '@angular/material';
+
+/** Effects */
+import { MovieEffects } from './effects/movie';
+
+/** MoviesDb Service */
+import { MoviesDbService } from './services/movies-db.service';
 
 /** Components in Application */
 import { AppComponent } from './container/app.component';
 import { MovieCardComponent } from './component/movie-card/movie-card.component';
 
-import { MoviesRetrieverService } from './services/movies-retriever.service';
 import { HeaderComponent } from './component/shared/header/header.component';
 import { FooterComponent } from './component/shared/footer/footer.component';
 import { MoviesPageComponent } from './container/movies-page/movies-page.component';
@@ -30,8 +36,6 @@ import { MoviePreviewListComponent } from './component/movie-preview-list/movie-
 import { appRoutes } from './routes';
 import { reducer } from './reducers';
 import { schema } from './db';
-
-
 
 @NgModule({
   declarations: [
@@ -59,9 +63,10 @@ import { schema } from './db';
       })
     }),
     StoreLogMonitorModule,
+    EffectsModule.run(MovieEffects),
     DBModule.provideDB(schema)
   ],
-  providers: [MoviesRetrieverService],
+  providers: [MoviesDbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

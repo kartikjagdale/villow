@@ -1,15 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'vil-movie-card',
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.css']
 })
-export class MovieCardComponent implements OnInit {
+export class MovieCardComponent {
   @Input() movie: Object;
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

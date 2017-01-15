@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MoviesRetrieverService } from '../services/movies-retriever.service';
 
 @Component({
   selector: 'vil-root',
@@ -8,13 +7,4 @@ import { MoviesRetrieverService } from '../services/movies-retriever.service';
   providers: []
 })
 export class AppComponent {
-  movies: Array<Object>;
-  // constructor(private moviesRetriver: MoviesRetrieverService){
-  //   this.moviesRetriver.getPopular()
-  //       .subscribe(response => {
-  //         this.movies = response.results;
-  //       });
-  // }
-  
-  title = 'vil works!';
 }

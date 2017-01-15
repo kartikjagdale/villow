@@ -1,3 +1,11 @@
-<p>
-{{movie | json }}
-</p>
+<md-card class="movie-card">
+  <md-card-header>
+    <md-card-title>{{movie.title}}</md-card-title>
+    <md-card-subtitle><strong>Relaease Date:</strong> {{movie.release_date}}</md-card-subtitle>
+  </md-card-header>
+  <img  md-card-sm-imag src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" *ngIf="movie.poster_path">
+  <md-card-actions>
+    <button md-button>LIKE</button>
+    <button md-button>SHARE</button>
+  </md-card-actions>
+</md-card>

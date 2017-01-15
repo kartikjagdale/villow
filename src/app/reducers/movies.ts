@@ -16,6 +16,22 @@ const initialState: State = {
 
 export function reducer(state = initialState, action: movie.Actions): State {
   switch (action.type) {
+    case movie.ActionTypes.SEARCH_COMPLETE: {
+      const movies = action.payload;
+      const newMovies = movies.filter(movie =>  !state.entities[movie.id]);
+      const newMovieIds = newMovies.map(movie => movie.id);
+      const newBookEntities = newMovies.reduce((entities: { [id: string]: Movie }, movie: Movie) => {
+        return Object.assign(entities, {
+          [movie.id]: movie
+        });
+      }, {});
+
+      return {
+        ids: [ ...state.ids, ...newMovieIds ],
+        entities: Object.assign({}, state.entities, newBookEntities),
+        selectedMovieId: state.selectedMovieId
+      };
+    }
     default: {
       return state;
     }
